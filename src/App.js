@@ -19,7 +19,10 @@ function App() {
       <div className="footer">
         <p>
           <code>
-            developed by <a href="http://moaty.me">Moaty</a>
+            developed by{" "}
+            <a href="http://www.moaty.me" target="_blank">
+              Moaty
+            </a>
           </code>
         </p>
       </div>
