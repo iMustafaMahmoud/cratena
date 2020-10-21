@@ -19,7 +19,7 @@ function App() {
       <div className="footer">
         <p>
           <code>
-            developed by: <a href="http://moaty.me">Moaty</a>
+            developed by <a href="http://moaty.me">Moaty</a>
           </code>
         </p>
       </div>
