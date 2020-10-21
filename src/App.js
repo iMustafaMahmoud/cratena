@@ -20,7 +20,11 @@ function App() {
         <p>
           <code>
             developed by{" "}
-            <a href="http://www.moaty.me" target="_blank">
+            <a
+              href="http://www.moaty.me"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Moaty
             </a>
           </code>
