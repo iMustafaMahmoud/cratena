@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./assets/cratena-logo.png";
 import { motion } from "framer-motion";
 import "./App.css";
 
@@ -14,7 +13,7 @@ function App() {
   return (
     <div className="container">
       <motion.div animate={{ y: -100 }} transition={bounceTransition}>
-        <img src={logo} className="App-logo" alt="logo" />
+        <div className="logo" />
       </motion.div>
       <div className="footer">
         <p>

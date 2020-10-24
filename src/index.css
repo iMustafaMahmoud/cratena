@@ -43,6 +43,14 @@ code {
   margin-top: 250px;
 }
 
+.logo {
+  background: url("./assets/cratena-logo.png") no-repeat;
+  background-size: contain;
+  height: 400px;
+  width: 250px;
+  margin-top: 250px;
+}
+
 .footer {
   font-size: 10px;
   margin-top: auto;
