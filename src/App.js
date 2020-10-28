@@ -1,36 +1,33 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { lazy, Suspense } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
-const bounceTransition = {
-  y: {
-    duration: 2,
-    yoyo: Infinity,
-    ease: "easeInOut",
-  },
-};
-function App() {
+// Coming Soon Page
+const ComingSoon = lazy(() => import("./pages/ComingSoon"));
+
+const App = () => {
   return (
-    <div className="container">
-      <motion.div animate={{ y: -100 }} transition={bounceTransition}>
-        <div className="logo" />
-      </motion.div>
-      <div className="footer">
-        <p>
-          <code>
-            developed by{" "}
-            <a
-              href="http://www.moaty.me"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Moaty
-            </a>
-          </code>
-        </p>
-      </div>
-    </div>
+    <Router>
+      <Suspense
+        fallback={
+          <div className="">
+            <div className="">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        }
+      >
+        <Switch>
+          <Route
+            exact
+            path={process.env.PUBLIC_URL + "/"}
+            component={ComingSoon}
+          />
+        </Switch>
+      </Suspense>
+    </Router>
   );
-}
+};
 
 export default App;
