@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Fragment } from "react";
+import MetaTags from "react-meta-tags";
 import { motion } from "framer-motion";
 
 const bounceTransition = {
@@ -11,25 +12,31 @@ const bounceTransition = {
 
 const ComingSoon = () => {
   return (
-    <div className="container">
-      <motion.div animate={{ y: -100 }} transition={bounceTransition}>
-        <div className="logo" />
-      </motion.div>
-      <div className="footer">
-        <p>
-          <code>
-            developed by{" "}
-            <a
-              href="http://www.moaty.me"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Moaty
-            </a>
-          </code>
-        </p>
+    <Fragment>
+      <MetaTags>
+        <title>Cratena - Coming Soon</title>
+        <meta name="description" content="cratena shoe factory" />
+      </MetaTags>
+      <div className="container-coming-soon">
+        <motion.div animate={{ y: -100 }} transition={bounceTransition}>
+          <div className="logo-coming-soon" />
+        </motion.div>
+        <div className="footer-coming-soon">
+          <p>
+            <code>
+              developed by{" "}
+              <a
+                href="http://www.moaty.me"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Moaty
+              </a>
+            </code>
+          </p>
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

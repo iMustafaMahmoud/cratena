@@ -44,7 +44,7 @@ code {
 }
 
 .logo {
-  background: url("./assets/cratena-logo.png") no-repeat;
+  background: url("./assets/images/cratena-logo.png") no-repeat;
   background-size: contain;
   height: 200px;
   width: 100px;

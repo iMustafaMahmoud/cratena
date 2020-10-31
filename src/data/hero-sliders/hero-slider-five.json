@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Highlighted Product",
+    "subtitle": "Description / Slogan",
+    "image": "/assets/img/slider/slider-8.jpg",
+    "url": "/shop-grid-standard"
+  },
+  {
+    "id": 2,
+    "title": "Highlighted Category",
+    "subtitle": "Description / Slogan",
+    "image": "/assets/img/slider/slider-8-2.jpg",
+    "url": "/shop-grid-standard"
+  }
+]
