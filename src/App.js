@@ -6,13 +6,19 @@ import { ToastProvider } from "react-toast-notifications";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
+import { useAuth } from './hooks/auth-hook';
 import "./App.css";
 
 // Coming Soon Page
 const ComingSoon = lazy(() => import("./pages/ComingSoon"));
 const Home = lazy(() => import("./pages/Home"));
+const LoginRegister = lazy(() => import("./pages/LoginRegister"));
+const MyAccount = lazy(() => import("./pages/MyAccount"));
 
 const App = (props) => {
+
+  useAuth();
+  
   useEffect(() => {
     props.dispatch(
       loadLanguages({
@@ -51,6 +57,16 @@ const App = (props) => {
                   exact
                   path={process.env.PUBLIC_URL + "/home"}
                   component={Home}
+                />
+                <Route
+                  exact
+                  path={process.env.PUBLIC_URL + "/login"}
+                  component={LoginRegister}
+                />
+                <Route
+                  exact
+                  path={process.env.PUBLIC_URL + "/my-account/:userId"}
+                  component={MyAccount}
                 />
               </Switch>
             </Suspense>

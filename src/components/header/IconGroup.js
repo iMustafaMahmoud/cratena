@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import MenuCart from "./MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
+import { logout } from "../../redux/actions/userActions";
+import { useSelector, useDispatch } from "react-redux";
 
 const IconGroup = ({
   currency,
@@ -13,6 +15,10 @@ const IconGroup = ({
   deleteFromCart,
   iconWhiteClass,
 }) => {
+  const { isLoggedIn, userId } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+  const Logout = logout(dispatch);
+
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -50,19 +56,36 @@ const IconGroup = ({
         </button>
         <div className="account-dropdown">
           <ul>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                Register
-              </Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                my account
-              </Link>
-            </li>
+            {isLoggedIn ? (
+              <>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + `/my-account/${userId}`}>
+                    my account
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={process.env.PUBLIC_URL + "/home"}
+                    onClick={Logout}
+                  >
+                    logout
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/login"}>
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/login"}>
+                    Register
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
