@@ -7,6 +7,7 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import LayoutOne from "../layouts/LayoutOne";
+import DatePicker from "react-datepicker";
 import Breadcrumb from "../wrappers/breadcrumb/Breadcrumb";
 import { useHttpClient } from "../hooks/http-hook";
 import { login } from "../redux/actions/userActions";
@@ -16,11 +17,11 @@ const LoginRegister = ({ location }) => {
   const { pathname } = location;
   const state = useSelector((state) => state.userReducer);
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const [selectedValue, setSelectedValue] = useState("");
   const dispatch = useDispatch();
   const Login = login(dispatch);
-  const { isLoading, error, sendRequest, clearErrorMessage } = useHttpClient();
-
-  console.log(state);
+  const [startDate, setStartDate] = useState(new Date());
+  const { sendRequest } = useHttpClient();
 
   const [allValues, setAllValues] = useState({
     email: "",
@@ -28,8 +29,10 @@ const LoginRegister = ({ location }) => {
     name: "",
     age: "",
     address: "",
+    gender: "Male",
   });
-  
+
+
   let history = useHistory();
 
   const switchModeHandler = () => {
@@ -40,8 +43,14 @@ const LoginRegister = ({ location }) => {
     setAllValues({ ...allValues, [e.target.name]: e.target.value });
   };
 
+  const handleChange = (e) => {
+    setSelectedValue(e.target.value);
+    setAllValues({ ...allValues, gender: e.target.value });
+  };
+
   const authSubmitHandler = async (event) => {
     event.preventDefault();
+    console.log(allValues);
 
     if (isLoginMode) {
       try {
@@ -56,7 +65,6 @@ const LoginRegister = ({ location }) => {
             "Content-Type": "application/json",
           }
         );
-        console.log(response);
         Login(response.userId, response.token);
         setAllValues({
           email: "",
@@ -64,20 +72,37 @@ const LoginRegister = ({ location }) => {
           name: "",
           age: "",
           address: "",
+          gender: "Male",
         });
         history.push("/home");
       } catch (err) {}
     } else {
       try {
         const response = await sendRequest(
-          `${process.env.REACT_APP_BACKED_URL}/users/signup`,
+          "http://localhost:5000/users/signup",
           "POST",
           JSON.stringify({
             email: allValues.email,
             password: allValues.password,
-          })
+            name: allValues.name,
+            age: parseInt(allValues.age),
+            billing_address: allValues.address,
+            gender: allValues.gender,
+          }),
+          {
+            "Content-Type": "application/json",
+          }
         );
         Login(response.userId, response.token);
+        setAllValues({
+          email: "",
+          password: "",
+          name: "",
+          age: "",
+          address: "",
+          gender: "Male",
+        });
+        history.push("/home");
       } catch (err) {}
     }
   };
@@ -111,10 +136,7 @@ const LoginRegister = ({ location }) => {
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item onClick={switchModeHandler}>
-                        <Nav.Link
-                          eventKey="register"
-                          // onClick={setIsLoginMode(false)}
-                        >
+                        <Nav.Link eventKey="register">
                           <h4>Register</h4>
                         </Nav.Link>
                       </Nav.Item>
@@ -157,7 +179,7 @@ const LoginRegister = ({ location }) => {
                       <Tab.Pane eventKey="register">
                         <div className="login-form-container">
                           <div className="login-register-form">
-                            <form>
+                            <form onSubmit={authSubmitHandler}>
                               <input
                                 type="text"
                                 name="name"
@@ -193,6 +215,15 @@ const LoginRegister = ({ location }) => {
                                 value={allValues.address}
                                 onChange={changeHandler}
                               />
+                              <p>Gender</p>
+                              <select
+                                style={{ marginBottom: 40 }}
+                                value={selectedValue}
+                                onChange={handleChange}
+                              >
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                              </select>
                               <div className="button-box">
                                 <button type="submit">
                                   <span>Register</span>
